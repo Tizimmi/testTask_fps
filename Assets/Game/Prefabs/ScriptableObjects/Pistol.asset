@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Pistol
   _itemType: 1
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 3100239772661441639, guid: 236eecf3b112ec74d8fa53baf9fafb88, type: 3}
   <UseButton>k__BackingField: 323
+  _zoomButton: 324
   _damage: 10
   _range: 75
   _magazineSize: 12

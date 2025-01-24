@@ -3,36 +3,10 @@ using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic
 {
-	public class Inventory : MonoBehaviour
+	public class Inventory
 	{
-		[SerializeField]
-		private InventoryItem[] _inventoryItems;
-		[SerializeField]
-		private InventoryItem _test1;
-		[SerializeField]
-		private InventoryItem _test2;
-
-		private void Start()
-		{
-			_inventoryItems = new InventoryItem[5];
-		}
-
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.Q))
-			{
-				AddItem(_test1);
-			}
-			if (Input.GetKeyDown(KeyCode.E))
-			{
-				AddItem(_test2);
-			}
-			if (Input.GetKeyDown(KeyCode.R))
-			{
-				RemoveItem(0);
-			}
-		}
-
+		private InventoryItem[] _inventoryItems = new InventoryItem[5];
+		
 		public void AddItem(InventoryItem item)
 		{
 			var newItem = (int) item._itemType;
@@ -50,6 +24,11 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 		public void RemoveItem(int index)
 		{
 			_inventoryItems[index] = null;
+		}
+
+		public void RemoveItem(InventoryItem item)
+		{
+			RemoveItem((int)item._itemType);
 		}
 
 		public bool TryGetItem(int index, out InventoryItem item)

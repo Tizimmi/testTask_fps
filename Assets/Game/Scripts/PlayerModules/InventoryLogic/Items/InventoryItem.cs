@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 {
@@ -15,9 +16,19 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 		[field: SerializeField]
 		public KeyCode UseButton { get; private set; }
 
-		public virtual void Equip()
+		private GameObject _instance;
+		public virtual void Equip(Transform root)
 		{
 			Debug.Log($"Equipped {_itemName}");
+			_instance = Instantiate(_prefab, root);
+		}
+		
+		public virtual void UnEquip()
+		{
+			if (_instance != null)
+			{
+				Destroy(_instance.gameObject);
+			}
 		}
 		
 		public virtual void Use()

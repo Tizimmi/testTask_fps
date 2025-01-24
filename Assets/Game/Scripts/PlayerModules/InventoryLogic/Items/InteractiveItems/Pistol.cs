@@ -2,11 +2,21 @@
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
-	public class Pistol : Weapon
+	public class Pistol : Gun
 	{
 		public override void Use()
 		{
-			Debug.Log($"Shoot from pistol, deal {_damage} damage");
+			
+		}
+
+		public override void Equip(Transform root)
+		{
+			base.Equip(root);
+		}
+
+		public override void Zoom(bool isZooming)
+		{
+			base.Zoom(isZooming);
 		}
 	}
 }
