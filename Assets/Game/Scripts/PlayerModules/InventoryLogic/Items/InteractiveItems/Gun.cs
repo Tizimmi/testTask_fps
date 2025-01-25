@@ -2,11 +2,8 @@
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
-	[CreateAssetMenu(menuName = "ScriptableObjects/" + nameof(Inventory) + "/" + nameof(Gun) , fileName = "new_" + nameof(Gun))]
-	public class Gun : InventoryItem
+	public class Gun : MonoBehaviour
 	{
-		public KeyCode _zoomButton;
-		
 		public int _damage;
 		public int _range;
 		
@@ -15,8 +12,13 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		public int _remainingBullets;
 
 		public float _reloadTime;
+
+		public void Shoot()
+		{
+			Debug.Log($"Shooting for {_damage}");
+		}
 		
-		public virtual void Reload() // можно въебать корутину
+		public void Reload() // можно въебать корутину
 		{
 			if(InMagazineBullets == _magazineSize)
 				return;
@@ -30,7 +32,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			_remainingBullets -= bulletsToRefill;
 		}
 		
-		public virtual void Zoom(bool isZooming)
+		public void Zoom()
 		{
 			
 		}

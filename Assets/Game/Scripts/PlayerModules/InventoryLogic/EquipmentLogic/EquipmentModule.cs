@@ -8,20 +8,10 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 	public class EquipmentModule : MonoBehaviour
 	{
 		[SerializeField]
-		private HandItemModule _handModule;
-		[SerializeField]
-		private InventoryItem test;
-		[SerializeField]
-		private Transform _itemContainer;
-		
+		private HandItemModule _handItemModule;
 		[Inject]
 		private Inventory _inventory;
-
-		private void Start()
-		{
-			_inventory.AddItem(test);
-		}
-
+		
 		private void Update()
 		{
 			InventoryItem item;
@@ -30,8 +20,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (_inventory.TryGetItem(0, out item))
 				{
-					item.Equip(_itemContainer);
-					_handModule.SetActiveItem(item);
+					_handItemModule.SetActiveItem(item);
+					item.Equip();
 					return;
 				}
 			}
@@ -39,8 +29,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (_inventory.TryGetItem(1, out item))
 				{
-					item.Equip(_itemContainer);
-					_handModule.SetActiveItem(item);
+					item.Equip();
+					_handItemModule.SetActiveItem(item);
 					return;
 				}
 			}
@@ -48,8 +38,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (_inventory.TryGetItem(2, out item))
 				{
-					item.Equip(_itemContainer);
-					_handModule.SetActiveItem(item);
+					item.Equip();
+					_handItemModule.SetActiveItem(item);
 					return;
 				}
 			}
@@ -57,8 +47,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (_inventory.TryGetItem(3, out item))
 				{
-					item.Equip(_itemContainer);
-					_handModule.SetActiveItem(item);
+					item.Equip();
+					_handItemModule.SetActiveItem(item);
 					return;
 				}
 			}
@@ -66,8 +56,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (_inventory.TryGetItem(4, out item))
 				{
-					item.Equip(_itemContainer);
-					_handModule.SetActiveItem(item);
+					item.Equip();
+					_handItemModule.SetActiveItem(item);
 					return;
 				}
 			}

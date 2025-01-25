@@ -1,5 +1,6 @@
 ﻿using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,42 +8,41 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 {
 	public class HandItemModule : MonoBehaviour
 	{
-		[SerializeField]
-		private KeyCode _dropButton;
-		[SerializeField]
-		private KeyCode _pickupButton;
+		[field: SerializeField]
+		public InventoryItem CurrentActiveItem { get; private set; }
 
 		[Inject]
-		private Inventory _inventory;
-		
-		private InventoryItem _currentActiveItem;
+		private readonly Inventory _inventory;
 
 		private void Update()
 		{
-			if(_currentActiveItem == null)
+			if(!CurrentActiveItem)
 				return;
-
-			if (Input.GetKeyDown(_dropButton))
+			
+			if (Input.GetButtonDown("Drop"))
 			{
-				_inventory.RemoveItem(_currentActiveItem);
-				_currentActiveItem = null;
-				return;
+				CurrentActiveItem.GetComponent<Pickup>().Drop();
+				_inventory.RemoveItem(CurrentActiveItem);
+				CurrentActiveItem = null;
+			}
+			
+			if (Input.GetButtonDown("Fire1") && CurrentActiveItem.GetComponent<Gun>())
+			{
+				CurrentActiveItem.GetComponent<Gun>().Shoot();
 			}
 
-			if (_currentActiveItem is Gun weapon)
+			if (Input.GetButtonDown("Fire2"))
 			{
-				weapon.Zoom(Input.GetKey(weapon._zoomButton));
-			}
-
-			if (Input.GetKeyDown(_currentActiveItem.UseButton))
-			{
-				_currentActiveItem.Use();
+				
 			}
 		}
 
 		public void SetActiveItem(InventoryItem item)
 		{
-			_currentActiveItem = item;
+			if (CurrentActiveItem)
+				CurrentActiveItem.UnEquip();
+			
+			CurrentActiveItem = item;
 		}
 	}
 }

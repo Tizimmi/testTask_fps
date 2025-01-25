@@ -1,39 +1,24 @@
-﻿using Unity.VisualScripting;
+﻿using Unity.Mathematics;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 {
-	[CreateAssetMenu(menuName = "ScriptableObjects/" + nameof(Inventory) + "/" + nameof(InventoryItem) , fileName = "new_" + nameof(InventoryItem))]
-
-	public class InventoryItem : ScriptableObject
+	public class InventoryItem : MonoBehaviour
 	{
 		[SerializeField]
 		public string _itemName;
 		[SerializeField]
 		public ItemType _itemType;
-		[SerializeField]
-		public GameObject _prefab;
-		[field: SerializeField]
-		public KeyCode UseButton { get; private set; }
-
-		private GameObject _instance;
-		public virtual void Equip(Transform root)
+		
+		public virtual void Equip()
 		{
 			Debug.Log($"Equipped {_itemName}");
-			_instance = Instantiate(_prefab, root);
+			gameObject.SetActive(true);
 		}
 		
 		public virtual void UnEquip()
 		{
-			if (_instance != null)
-			{
-				Destroy(_instance.gameObject);
-			}
-		}
-		
-		public virtual void Use()
-		{
-			Debug.Log($"Used {_itemName}");
+			gameObject.SetActive(false);
 		}
 	}
 }

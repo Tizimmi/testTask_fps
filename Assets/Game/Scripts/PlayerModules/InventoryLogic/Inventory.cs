@@ -1,11 +1,12 @@
 ﻿using Game.Scripts.PlayerModules.InventoryLogic.Items;
+using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic
 {
 	public class Inventory
 	{
-		private InventoryItem[] _inventoryItems = new InventoryItem[5];
+		private readonly InventoryItem[] _inventoryItems = new InventoryItem[5];
 		
 		public void AddItem(InventoryItem item)
 		{
