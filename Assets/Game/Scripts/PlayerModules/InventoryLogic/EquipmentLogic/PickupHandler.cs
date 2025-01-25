@@ -20,7 +20,15 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 		[SerializeField]
 		private Transform _itemContainer;
 
-		public void PickUp()
+		private void Update()
+		{
+			if (Input.GetButtonDown("Take"))
+			{
+				PickUp();
+			}
+		}
+
+		private void PickUp()
 		{
 			Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 

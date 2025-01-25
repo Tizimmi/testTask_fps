@@ -8,6 +8,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		private Rigidbody _rb;
 		[SerializeField]
 		private Collider _collider;
+		[SerializeField]
+		private Vector3 _positionInHand;
 		
 		public virtual void Take(Transform root)
 		{
@@ -15,8 +17,10 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			_collider.isTrigger = true;
 			gameObject.SetActive(false);
 			gameObject.transform.SetParent(root);
-			transform.localPosition = Vector3.zero;
-			transform.localRotation = Quaternion.identity;
+			
+			var trans = transform;
+			trans.localPosition = _positionInHand;
+			trans.localRotation = Quaternion.identity;
 		}
 		
 		public void Drop()
@@ -25,6 +29,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			_collider.isTrigger = false;
 			_rb.isKinematic = false;
 			gameObject.transform.SetParent(null);
+			
+			StopAllCoroutines();
 		}
 	}
 }

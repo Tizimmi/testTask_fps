@@ -1,41 +1,37 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class Zoom : MonoBehaviour
+public class GunAim : MonoBehaviour
 {
-    [SerializeField]
-    private Camera camera;
-    
-    public float defaultFOV = 60;
-    [Range(0, 1)]
-    public float currentZoom;
-    public float sensitivity = 1;
+	public Transform activeWeapon;
+	public Transform defaultPosition;
+	public Transform adsPosition;
+	
+	public Vector3 weaponPosition; // set to 0 0 0 in inspector
+	
+	public float aimSpeed = 0.25f; // time to enter ADS
+	public float _defaultFOV = 80f; // FOV in degrees
+	public float zoomRatio = 0.5f; // 1/zoom times
+	
+	public Camera fpsCam; // player camera
 
+	void Update()
+	{
+		if (Input.GetButton("Fire2"))
+		{
+			weaponPosition = Vector3.Lerp(weaponPosition, adsPosition.localPosition, aimSpeed * Time.deltaTime);
+			activeWeapon.localPosition = weaponPosition;
+			SetFieldOfView(Mathf.Lerp(fpsCam.fieldOfView, zoomRatio * _defaultFOV, aimSpeed * Time.deltaTime));
+		}
+		else
+		{
+			weaponPosition = Vector3.Lerp(weaponPosition, defaultPosition.localPosition, aimSpeed * Time.deltaTime);
+			activeWeapon.localPosition = weaponPosition;
+			SetFieldOfView(Mathf.Lerp(fpsCam.fieldOfView, _defaultFOV, aimSpeed * Time.deltaTime));
+		}
+	}
 
-    void Awake()
-    {
-        // Get the camera on this gameObject and the defaultZoom.
-        if (camera)
-        {
-            defaultFOV = camera.fieldOfView;
-        }
-    }
-
-    public void ZoomIn(float newFOV, float time)
-    {
-         camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, newFOV, time);
-    }
-
-    public void ResetZoom()
-    {
-        camera.fieldOfView = defaultFOV;
-    }
-    
-    // void Update()
-    // {
-    //     // Update the currentZoom and the camera's fieldOfView.
-    //     currentZoom += Input.mouseScrollDelta.y * sensitivity * .05f;
-    //     currentZoom = Mathf.Clamp01(currentZoom);
-    //     camera.fieldOfView = Mathf.Lerp(defaultFOV, maxZoomFOV, currentZoom);
-    // }
+	void SetFieldOfView(float fov)
+	{
+		fpsCam.fieldOfView = fov;
+	}
 }

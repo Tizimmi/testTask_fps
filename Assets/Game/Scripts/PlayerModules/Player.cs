@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Scripts.PlayerModules
 {
-	public class PlayerController : MonoBehaviour
+	public class Player : MonoBehaviour
 	{
 		[SerializeField]
 		private PickupHandler _pickupHandler;
@@ -14,12 +14,5 @@ namespace Game.Scripts.PlayerModules
 		
 		public Inventory Inventory = new();
 		
-		private void Update()
-		{
-			if (Input.GetButtonDown("Take"))
-			{
-				_pickupHandler.PickUp();
-			}
-		}
 	}
 }

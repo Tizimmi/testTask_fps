@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 {
@@ -12,7 +11,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 		
 		public virtual void Equip()
 		{
-			Debug.Log($"Equipped {_itemName}");
 			gameObject.SetActive(true);
 		}
 		

@@ -1,17 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Scripts.PlayerModules.HealthModule
 {
-	public class HealthComponent
+	public class HealthComponent : MonoBehaviour
 	{
-		public int MaxHealth;
-		public int CurrentHealth;
+		public int _maxHealth;
+		
+		private int _currentHealth;
 
+		private void Start()
+		{
+			Init();
+		}
+
+		private void Init()
+		{
+			_currentHealth = _maxHealth;
+		}
+		
 		public void TakeDamage(int value)
 		{
-			CurrentHealth = Mathf.Max(0, CurrentHealth - value);
-
-			if (CurrentHealth == 0)
+			_currentHealth = Mathf.Max(0, _currentHealth - value);
+			
+			Debug.Log($"{_currentHealth}");
+			
+			if (_currentHealth == 0)
 			{
 				Death();
 			}
@@ -20,11 +34,13 @@ namespace Game.Scripts.PlayerModules.HealthModule
 		private void Death()
 		{
 			Debug.Log("I am dead");
+			Destroy(gameObject);
 		}
 
 		public void Heal(int value)
 		{
-			CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + value);
+			_currentHealth = Mathf.Min(_maxHealth, _currentHealth + value);
+			Debug.Log($"Healed for {value}");
 		}
 	}
 }
