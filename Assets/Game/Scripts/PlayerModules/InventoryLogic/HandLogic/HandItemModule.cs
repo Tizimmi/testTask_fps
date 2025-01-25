@@ -1,6 +1,5 @@
 ﻿using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
-using System;
 using UnityEngine;
 using Zenject;
 
