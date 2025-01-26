@@ -6,11 +6,11 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 {
 	public class Inventory
 	{
-		private readonly InventoryItem[] _inventoryItems = new InventoryItem[5];
+		private readonly Item[] _inventoryItems = new Item[5];
 		
-		public void AddItem(InventoryItem item)
+		public void AddItem(Item item)
 		{
-			var newItem = (int) item._itemType;
+			var newItem = (int) item._type;
 			
 			if (_inventoryItems[newItem] == null)
 			{
@@ -27,18 +27,18 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 			_inventoryItems[index] = null;
 		}
 
-		public void RemoveItem(InventoryItem item)
+		public void RemoveItem(Item item)
 		{
-			RemoveItem((int)item._itemType);
+			RemoveItem((int)item._type);
 		}
 
-		public bool TryGetItem(int index, out InventoryItem item)
+		public bool TryGetItem(int index, out Item item)
 		{
 			item = GetItem(index);
 			return item != null;
 		}
 
-		public InventoryItem GetItem(int index)
+		public Item GetItem(int index)
 		{
 			return _inventoryItems[index];
 		}

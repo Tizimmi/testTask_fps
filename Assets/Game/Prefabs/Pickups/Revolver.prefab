@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8136392222155816938}
-  - component: {fileID: 1185897000960456500}
+  - component: {fileID: 5075597835596536709}
   - component: {fileID: 2727173272152119431}
   - component: {fileID: 4270900293850662562}
-  - component: {fileID: 5075597835596536709}
-  - component: {fileID: 656982172165487869}
   m_Layer: 6
   m_Name: Revolver
   m_TagString: Untagged
@@ -37,7 +35,7 @@ Transform:
   - {fileID: 1708918059258127119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1185897000960456500
+--- !u!114 &5075597835596536709
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,18 +44,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3100239772661441639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a4ab0c0c3b43eaa8ac3c047687284a, type: 3}
+  m_Script: {fileID: 11500000, guid: 40f3559eb96d449d9402aaa8b9b7e9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MagazineSize>k__BackingField: 6
-  <MaxAmmo>k__BackingField: 18
-  _damage: 10
-  _range: 600
-  _hittableLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  _shotCooldownTime: 1
-  _reloadTime: 2
+  _rb: {fileID: 4270900293850662562}
+  _collider: {fileID: 2727173272152119431}
+  _positionInHand: {x: -0.07, y: 0.11, z: 0.12}
+  _item: {fileID: 11400000, guid: f80265e357e540c4ebed8a504e1f8501, type: 2}
 --- !u!65 &2727173272152119431
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,35 +99,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5075597835596536709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100239772661441639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40f3559eb96d449d9402aaa8b9b7e9a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 4270900293850662562}
-  _collider: {fileID: 2727173272152119431}
-  _positionInHand: {x: -0.07, y: 0.11, z: 0.12}
---- !u!114 &656982172165487869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3100239772661441639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7551f4390de44eaa16748253fc9294a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemName: Revolver
-  _itemType: 1
 --- !u!1001 &1170358207716639972
 PrefabInstance:
   m_ObjectHideFlags: 0

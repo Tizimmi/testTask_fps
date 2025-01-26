@@ -9,16 +9,13 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 	{
 		[Inject]
 		private Inventory _inventory;
-
-		[SerializeField]
+		[Inject]
 		private Camera _camera;
+		
 		[SerializeField]
 		private LayerMask _pickupLayer;
 		[SerializeField]
 		private float _pickupRange;
-		
-		[SerializeField]
-		private Transform _itemContainer;
 
 		private void Update()
 		{
@@ -37,9 +34,11 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 					_pickupRange,
 					_pickupLayer))
 			{
-				var item = hit.transform.gameObject.GetComponent<InventoryItem>();
-				item.GetComponent<Pickup>().Take(_itemContainer);
-				_inventory.AddItem(item);
+				if (hit.transform.TryGetComponent(out Pickup pickup))
+				{
+					_inventory.AddItem(pickup._item);
+					Destroy(hit.transform.gameObject);
+				}
 			}
 		}
 	}

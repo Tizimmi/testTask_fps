@@ -1,7 +1,4 @@
-﻿using Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic;
-using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
-using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Game.Scripts.UI.HUD
@@ -11,47 +8,19 @@ namespace Game.Scripts.UI.HUD
 		[SerializeField]
 		private TextMeshProUGUI _ammoField;
 
-		[SerializeField]
-		private EquipmentModule _equipmentModule;
-
-		private Gun _currentGun;
-
-		private void OnEnable()
+		public void ResetText()
 		{
-			_equipmentModule.OnGunEquipped += UpdateReference;
+			_ammoField.text = string.Empty;
+		}
+		
+		public void SetReloadState()
+		{
+			_ammoField.text = "Reloading...";
 		}
 
-		private void OnDisable()
+		public void UpdateAmmo(int gunCurrentMagazineFill, int gunMagazineSize, int gunCurrentAmmoStorage)
 		{
-			_equipmentModule.OnGunEquipped -= UpdateReference;
-			if(_currentGun == null)
-				return;
-			_currentGun.OnAmmoChange -= UpdateAmmo;
-			_currentGun.OnReload -= ShowReloadText;
-		}
-
-		private void UpdateReference(Gun gun)
-		{
-			if (_currentGun != null)
-			{
-				_currentGun.OnReload -= ShowReloadText;
-				_currentGun.OnAmmoChange -= UpdateAmmo;
-			}
-			_currentGun = gun;
-
-			_currentGun.OnReload += ShowReloadText;
-			_currentGun.OnAmmoChange += UpdateAmmo;
-			UpdateAmmo(_currentGun.InMagazineBullets, _currentGun.RemainingBullets);
-		}
-
-		private void UpdateAmmo(int inMagazine, int total)
-		{
-			_ammoField.text = $"{inMagazine}/{_currentGun.MagazineSize} ({total})";
-		}
-
-		private void ShowReloadText()
-		{
-			_ammoField.text = "Reloading";
+			_ammoField.text = $"{gunCurrentMagazineFill}/{gunMagazineSize} ({gunCurrentAmmoStorage})";
 		}
 	}
 }

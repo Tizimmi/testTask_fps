@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
@@ -12,26 +11,17 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		[SerializeField]
 		private Vector3 _positionInHand;
 		
-		public void Take(Transform root)
+		[SerializeField]
+		public Item _item;
+		
+		public void Enable()
 		{
 			_rb.isKinematic = true;
 			_collider.isTrigger = true;
-			gameObject.SetActive(false);
-			gameObject.transform.SetParent(root);
 			
 			var trans = transform;
 			trans.localPosition = _positionInHand;
 			trans.localRotation = Quaternion.identity;
-		}
-		
-		public void Drop()
-		{
-			transform.gameObject.SetActive(true);
-			_collider.isTrigger = false;
-			_rb.isKinematic = false;
-			gameObject.transform.SetParent(null);
-			
-			StopAllCoroutines();
 		}
 	}
 }

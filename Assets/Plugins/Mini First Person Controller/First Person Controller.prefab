@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 456622356064702092}
   - component: {fileID: 6570020166950695155}
   - component: {fileID: 9053014798393044136}
+  - component: {fileID: 3842998643469154826}
   m_Layer: 8
   m_Name: First Person Controller
   m_TagString: Untagged
@@ -683,7 +684,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f490272af3a549808648d0b0ab8e481a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handItemModule: {fileID: 1952917382304484944}
+  _handSlot: {fileID: 517567110570061517}
+  _currentItemObject: {fileID: 0}
 --- !u!114 &6570020166950695155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +717,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
+--- !u!114 &3842998643469154826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773623360729482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db72232692d411bb5f78056eb82b851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentModule: {fileID: 456622356064702092}
 --- !u!1 &1963958859065967600
 GameObject:
   m_ObjectHideFlags: 0

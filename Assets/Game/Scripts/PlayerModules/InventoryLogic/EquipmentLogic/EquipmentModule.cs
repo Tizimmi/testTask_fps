@@ -1,85 +1,93 @@
 ﻿using Game.Scripts.PlayerModules.InventoryLogic.HandLogic;
+using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
-using System;
+using Game.Scripts.UI.HUD;
 using UnityEngine;
 using Zenject;
-using InventoryItem = Game.Scripts.PlayerModules.InventoryLogic.Items.InventoryItem;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 {
 	public class EquipmentModule : MonoBehaviour
 	{
-		public event Action<Gun> OnGunEquipped;
-		
-		[SerializeField]
-		private HandItemModule _handItemModule;
 		[Inject]
 		private Inventory _inventory;
+		[Inject]
+		private AmmoView _ammoView;
+		[Inject]
+		private Shooting _shooting;
+		[SerializeField]
+		private Transform _handSlot;
+
+		public int CurrentItemSlotID { get; private set; }
 		
+		private Pickup _currentItemObject;
+
 		private void Update()
 		{
-			InventoryItem item;
+			Item item;
 			
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
 				if (_inventory.TryGetItem(0, out item))
 				{
-					if (item.TryGetComponent(out Gun gun))
-						OnGunEquipped?.Invoke(gun);
-					
-					_handItemModule.SetActiveItem(item);
-					item.Equip();
-					return;
+					EquipItem(item);
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
 				if (_inventory.TryGetItem(1, out item))
 				{
-					if (item.TryGetComponent(out Gun gun))
-						OnGunEquipped?.Invoke(gun);
-					
-					item.Equip();
-					_handItemModule.SetActiveItem(item);
-					return;
+					EquipItem(item);
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
 				if (_inventory.TryGetItem(2, out item))
 				{
-					if (item.TryGetComponent(out Gun gun))
-						OnGunEquipped?.Invoke(gun);
-					
-					item.Equip();
-					_handItemModule.SetActiveItem(item);
-					return;
+					EquipItem(item);
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
 				if (_inventory.TryGetItem(3, out item))
 				{
-					if (item.TryGetComponent(out Gun gun))
-						OnGunEquipped?.Invoke(gun);
-					
-					item.Equip();
-					_handItemModule.SetActiveItem(item);
-					return;
+					EquipItem(item);
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5))
 			{
 				if (_inventory.TryGetItem(4, out item))
 				{
-					if (item.TryGetComponent(out Gun gun))
-						OnGunEquipped?.Invoke(gun);
-					
-					item.Equip();
-					_handItemModule.SetActiveItem(item);
-					return;
+					EquipItem(item);
 				}
 			}
+		}
+
+		private void EquipItem(Item item)
+		{
+			if(_currentItemObject)
+				UnEquipItem();
+			
+			_currentItemObject = Instantiate(item._prefab, _handSlot).GetComponent<Pickup>();
+			_currentItemObject.Enable();
+			
+			CurrentItemSlotID = (int)_currentItemObject._item._type;
+
+			if (item is Gun gun)
+			{
+				var gunState = _shooting.GetOrCreateGunState(gun);
+				_ammoView.UpdateAmmo(gunState._currentMagazineFill, gun._magazineSize, gunState._currentAmmoStorage);
+				_shooting.ResetZoom();
+			}
+			else
+			{
+				_ammoView.ResetText();
+			}
+		}
+
+		private void UnEquipItem()
+		{
+			Destroy(_currentItemObject.gameObject);
 		}
 	}
 }
