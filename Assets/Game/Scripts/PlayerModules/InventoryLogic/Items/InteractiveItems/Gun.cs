@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.PlayerModules.HealthModule;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,35 +7,41 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
 	public class Gun : MonoBehaviour
 	{
+		public event Action<int, int> OnAmmoChange;
+		public event Action OnReload;
+
+		[field: SerializeField]
+		public int MagazineSize { get; private set; }
+		[field: SerializeField]
+		public int MaxAmmo { get; private set; }
+		
 		[SerializeField]
 		private int _damage, _range;
+		[SerializeField]
+		private LayerMask _hittableLayers;
 		
-		public int _magazineSize;
-		public int _inMagazineBullets;
-		public int _remainingBullets;
+		public int InMagazineBullets { get; private set; }
+		public int RemainingBullets { get; private set; }
 		
 		[SerializeField]
 		private float _shotCooldownTime;
 		[SerializeField]
 		private float _reloadTime;
-		[SerializeField]
-		private float _gunZoom;
 		
 		private bool _isReloading;
 		private float _shotCooldown;
-
 		private Camera _camera;
-		private float _defaultFOV;
-		private bool _isZooming;
 
 		private void Start()
 		{
 			_camera = Camera.main;
-			
-			if (_camera)
-			{
-				_defaultFOV = _camera.fieldOfView;
-			}
+			InMagazineBullets = MagazineSize;
+			RemainingBullets = MaxAmmo;
+		}
+
+		private void OnEnable()
+		{
+			_isReloading = false;
 		}
 
 		private void Update()
@@ -48,7 +55,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			if(_isReloading)
 				return;
 
-			if (_inMagazineBullets <= 0)
+			if (InMagazineBullets <= 0)
 			{
 				Reload();
 				return;
@@ -60,14 +67,16 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			_shotCooldown = _shotCooldownTime;
 			
 			Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-
-			Debug.Log($"SHOOT {_damage}");
-			_inMagazineBullets--;
+			
+			InMagazineBullets--;
+			
+			OnAmmoChange?.Invoke(InMagazineBullets, RemainingBullets);
 			
 			if (Physics.Raycast(ray,
-					out var hit,
-					_range))
+					out var hit, _range,
+					_hittableLayers))
 			{
+				
 				var healthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
 				if(!healthComponent)
 					return;
@@ -77,31 +86,40 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		
 		public void Reload()
 		{
-			if(_inMagazineBullets == _magazineSize)
+			if(InMagazineBullets == MagazineSize)
 				return;
 
-			var bulletsToRefill = _magazineSize - _inMagazineBullets;
+			var bulletsToRefill = MagazineSize - InMagazineBullets;
 
-			if (_remainingBullets == 0)
+			if (RemainingBullets == 0)
 				return;
 
-			if (_remainingBullets < bulletsToRefill)
-				bulletsToRefill = _remainingBullets;
+			if (RemainingBullets < bulletsToRefill)
+				bulletsToRefill = RemainingBullets;
 
 			StartCoroutine(ReloadRoutine(bulletsToRefill));
 		}
 
 		private IEnumerator ReloadRoutine(int bulletsToRefill)
 		{
-			Debug.Log("Reload");
 			_isReloading = true;
-
+			
+			OnReload?.Invoke();
+			
 			yield return new WaitForSeconds(_reloadTime);
 			
-			_inMagazineBullets += bulletsToRefill;
-			_remainingBullets -= bulletsToRefill;
+			InMagazineBullets += bulletsToRefill;
+			RemainingBullets -= bulletsToRefill;
 
 			_isReloading = false;
+			
+			OnAmmoChange?.Invoke(InMagazineBullets, RemainingBullets);
+		}
+
+		private void OnDisable()
+		{
+			OnAmmoChange = null;
+			OnReload = null;
 		}
 	}
 }

@@ -49,14 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a4ab0c0c3b43eaa8ac3c047687284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MagazineSize>k__BackingField: 6
+  <MaxAmmo>k__BackingField: 18
   _damage: 10
   _range: 600
-  _magazineSize: 6
-  _inMagazineBullets: 6
-  _remainingBullets: 48
+  _hittableLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   _shotCooldownTime: 1
   _reloadTime: 2
-  _gunZoom: 30
 --- !u!65 &2727173272152119431
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,10 +11,10 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		private Camera _camera;
 		[SerializeField]
 		private float _zoomValue;
-		
+
 		[Inject]
 		private readonly Inventory _inventory;
-		
+
 		private InventoryItem _currentActiveItem;
 		private bool _isZooming;
 		private float _defaultFOV;
@@ -42,24 +42,29 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 
 			if (Input.GetButtonDown("Fire1"))
 			{
-				if (_currentActiveItem.GetComponent<Gun>())
-					_currentActiveItem.GetComponent<Gun>().Shoot();
-				else if (_currentActiveItem.GetComponent<Consumable>())
-					_currentActiveItem.GetComponent<Consumable>().Use();
+				if (_currentActiveItem.TryGetComponent(out Consumable consumable))
+					consumable.Use();
+			}
+
+			if (!_currentActiveItem.TryGetComponent(out Gun gun))
+			{
+				ResetZoom();
+				return;
+			}
+
+			if (Input.GetButtonDown("Fire1"))
+			{
+				gun.Shoot();
 			}
 
 			if (Input.GetButtonDown("Fire2"))
 			{
-				if (_currentActiveItem.GetComponent<Gun>())
-				{
-					ToggleZoom();
-				}
+				ToggleZoom();
 			}
 
 			if (Input.GetButtonDown("Reload"))
 			{
-				if (_currentActiveItem.GetComponent<Gun>())
-					_currentActiveItem.GetComponent<Gun>().Reload();
+				gun.Reload();
 			}
 		}
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
@@ -11,7 +12,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		[SerializeField]
 		private Vector3 _positionInHand;
 		
-		public virtual void Take(Transform root)
+		public void Take(Transform root)
 		{
 			_rb.isKinematic = true;
 			_collider.isTrigger = true;

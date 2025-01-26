@@ -1,11 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.HealthModule
 {
 	public class HealthComponent : MonoBehaviour
 	{
-		public int _maxHealth;
+		public event Action<int> OnHealthChange;
+		
+		[field: SerializeField]
+		public int MaxHealth { get; private set; }
 		
 		private int _currentHealth;
 
@@ -16,14 +19,14 @@ namespace Game.Scripts.PlayerModules.HealthModule
 
 		private void Init()
 		{
-			_currentHealth = _maxHealth;
+			_currentHealth = MaxHealth;
 		}
 		
 		public void TakeDamage(int value)
 		{
 			_currentHealth = Mathf.Max(0, _currentHealth - value);
 			
-			Debug.Log($"{_currentHealth}");
+			OnHealthChange?.Invoke(_currentHealth);
 			
 			if (_currentHealth == 0)
 			{
@@ -39,8 +42,9 @@ namespace Game.Scripts.PlayerModules.HealthModule
 
 		public void Heal(int value)
 		{
-			_currentHealth = Mathf.Min(_maxHealth, _currentHealth + value);
-			Debug.Log($"Healed for {value}");
+			_currentHealth = Mathf.Min(MaxHealth, _currentHealth + value);
+			
+			OnHealthChange?.Invoke(_currentHealth);
 		}
 	}
 }

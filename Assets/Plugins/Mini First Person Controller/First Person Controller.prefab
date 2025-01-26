@@ -655,8 +655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429e666922a846dc9dd34e84d6be3834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickupHandler: {fileID: 0}
-  _handItemModule: {fileID: 0}
+  _pickupHandler: {fileID: 6570020166950695155}
+  _handItemModule: {fileID: 1952917382304484944}
 --- !u!114 &1952917382304484944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f490272af3a549808648d0b0ab8e481a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handItemModule: {fileID: 0}
+  _handItemModule: {fileID: 1952917382304484944}
 --- !u!114 &6570020166950695155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980f50f1f4c24325986b1d128623b8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  <MaxHealth>k__BackingField: 100
 --- !u!1 &1963958859065967600
 GameObject:
   m_ObjectHideFlags: 0

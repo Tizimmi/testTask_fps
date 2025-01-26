@@ -1,49 +1,46 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.PlayerModules.HealthModule;
+using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
+using Zenject;
 
 namespace Game.Scripts.EnemyLogic
 {
 	public class EnemyAi : MonoBehaviour
 	{
-		public NavMeshAgent agent;
+		[Inject]
+		public HealthComponent _playerHealth;
 
-		public Transform player;
-		
+		[SerializeField]
+		private NavMeshAgent _agent;
+		[SerializeField]
+		private Transform _player;
 		[SerializeField]
 		private LayerMask _whatIsGround;
 		[SerializeField]
 		private LayerMask _whatIsPlayer;
-
-		//Patroling
-		private Vector3 _walkPoint;
-		private bool _walkPointSet;
-
 		[SerializeField]
 		private float _walkPointRange;
-
-		//Attacking
-		[SerializeField]
-		private float _timeBetweenAttacks;
-
-		private bool _alreadyAttacked;
-
-		//States
 		[SerializeField]
 		private float _sightRange;
 		[SerializeField]
 		private float _attackRange;
+		[SerializeField]
+		private int _attackDamage;
+		[SerializeField]
+		private float _timeBetweenAttacks;
 
+		private Vector3 _walkPoint;
+		private bool _walkPointSet;
+		private bool _alreadyAttacked;
 		private bool _playerInSightRange, _playerInAttackRange;
 
 		private void Awake()
 		{
-			agent = GetComponent<NavMeshAgent>();
+			_agent = GetComponent<NavMeshAgent>();
 		}
 
 		private void Update()
 		{
-			//Check for sight and attack range
 			_playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
 			_playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, _whatIsPlayer);
 
@@ -63,18 +60,16 @@ namespace Game.Scripts.EnemyLogic
 				SearchWalkPoint();
 
 			if (_walkPointSet)
-				agent.SetDestination(_walkPoint);
+				_agent.SetDestination(_walkPoint);
 
 			Vector3 distanceToWalkPoint = transform.position - _walkPoint;
 
-			//Walkpoint reached
 			if (distanceToWalkPoint.magnitude < 1f)
 				_walkPointSet = false;
 		}
 
 		private void SearchWalkPoint()
 		{
-			//Calculate random point in range
 			float randomZ = Random.Range(-_walkPointRange, _walkPointRange);
 			float randomX = Random.Range(-_walkPointRange, _walkPointRange);
 
@@ -89,20 +84,18 @@ namespace Game.Scripts.EnemyLogic
 
 		private void ChasePlayer()
 		{
-			agent.SetDestination(player.position);
+			_agent.SetDestination(_player.position);
 		}
 
 		private void AttackPlayer()
 		{
-			//Make sure enemy doesn't move
-			agent.SetDestination(transform.position);
+			_agent.SetDestination(transform.position);
 
-			transform.LookAt(player);
+			transform.LookAt(_player);
 
 			if (!_alreadyAttacked)
 			{
-				///Attack code here
-				///End of attack code
+				_playerHealth.TakeDamage(_attackDamage);
 
 				_alreadyAttacked = true;
 				Invoke(nameof(ResetAttack), _timeBetweenAttacks);
