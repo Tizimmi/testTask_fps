@@ -6,6 +6,7 @@ namespace Game.Scripts.PlayerModules.HealthModule
 	public class HealthComponent : MonoBehaviour
 	{
 		public event Action<int, int> OnHealthChange;
+		public event Action OnDeath;
 
 		[SerializeField]
 		private int _maxHealth;
@@ -36,8 +37,8 @@ namespace Game.Scripts.PlayerModules.HealthModule
 
 		private void Death()
 		{
-			Debug.Log("I am dead");
 			Destroy(gameObject);
+			OnDeath?.Invoke();
 		}
 
 		public bool TryHeal(int value)

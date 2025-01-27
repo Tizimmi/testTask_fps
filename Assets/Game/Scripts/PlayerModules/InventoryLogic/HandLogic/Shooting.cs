@@ -48,6 +48,11 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 				return;
 			}
 			
+			if (Input.GetButtonDown("Fire2"))
+			{
+				ToggleZoom(gun);
+			}
+			
 			GunState gunState = GetOrCreateGunState(gun);
 
 			if (gunState._currentMagazineFill <= 0)
@@ -66,11 +71,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 			if (Input.GetButtonDown("Reload"))
 			{
 				Reload(gun, gunState);
-			}
-
-			if (Input.GetButtonDown("Fire2"))
-			{
-				ToggleZoom(gun);
 			}
 		}
 

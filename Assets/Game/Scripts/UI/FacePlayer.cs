@@ -10,6 +10,9 @@ namespace Game.Scripts.UI
 
 		void Update()
 		{
+			if (_camera == null)
+				return;
+			
 			Vector3 direction = _camera.transform.position - transform.position;
 
 			if (direction != Vector3.zero)
