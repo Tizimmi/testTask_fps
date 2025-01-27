@@ -1,4 +1,5 @@
-﻿using Game.Scripts.PlayerModules.HealthModule;
+﻿using Game.Scripts.EnemyLogic;
+using Game.Scripts.PlayerModules.HealthModule;
 using Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic;
 using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
@@ -19,6 +20,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		private readonly Inventory _inventory;
 		[Inject]
 		private readonly AmmoView _ammoView;
+		[Inject]
+		private readonly HitMarkerController _hitMarkerController;
 		[Inject]
 		private Camera _camera;
 		private float _lastShotTime;
@@ -112,9 +115,15 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		public bool TryAddAmmo(int amount, ItemType type)
 		{
 			var selected = _gunStates.Find(x => x.Gun._type == type);
+			
 			if (selected == null)
 				return false;
+
+			if (selected._currentAmmoStorage >= selected.Gun._ammoStorage)
+				return false;
+			
 			selected.AddAmmo(amount);
+			
 			return true;
 		}
 
@@ -124,11 +133,12 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 
 			if (Physics.Raycast(ray, out var hit, gun._range))
 			{
-				var healthComponent = hit.transform.gameObject.GetComponent<HealthComponent>();
-				if (!healthComponent)
+				var healthComponent = hit.transform.gameObject.GetComponent<IDamagable>();
+				if (healthComponent == null)
 					return;
 
 				healthComponent.TakeDamage(gun._damage);
+				_hitMarkerController.ShowHitMarker();
 			}
 		}
 
@@ -192,6 +202,15 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		{
 			_camera.fieldOfView = _defaultFOV;
 			_isZooming = false;
+		}
+
+		public void StopReload()
+		{
+			if (_isReloading)
+			{
+				StopAllCoroutines();
+				_isReloading = false;
+			}
 		}
 	}
 }

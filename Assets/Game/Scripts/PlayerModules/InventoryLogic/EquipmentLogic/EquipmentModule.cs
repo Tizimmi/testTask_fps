@@ -81,7 +81,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				var gunState = _shooting.GetOrCreateGunState(gun);
 				_ammoView.UpdateAmmo(gunState._currentMagazineFill, gun._magazineSize, gunState._currentAmmoStorage);
-				_shooting.ResetZoom();
 			}
 			else
 			{
@@ -91,6 +90,15 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 
 		private void UnEquipItem()
 		{
+			_shooting.ResetZoom();
+			
+			if (_inventory.TryGetItem(CurrentItemSlotID, out var item))
+			{
+				if (item is Gun gun)
+				{
+					_shooting.StopReload();
+				}
+			}
 			Destroy(_currentItemObject.gameObject);
 		}
 	}

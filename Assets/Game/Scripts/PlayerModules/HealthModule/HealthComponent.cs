@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Game.Scripts.EnemyLogic;
+using System;
 using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.HealthModule
 {
-	public class HealthComponent : MonoBehaviour
+	public class HealthComponent : MonoBehaviour, IDamagable
 	{
 		public event Action<int, int> OnHealthChange;
 		public event Action OnDeath;
