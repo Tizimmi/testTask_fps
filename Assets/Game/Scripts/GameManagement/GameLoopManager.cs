@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.UI.HUD;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,14 @@ namespace Game.Scripts.GameManagement
 		private Camera _deathCamera;
 		[SerializeField]
 		private GameObject _hud;
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				Application.Quit();
+			}
+		}
 
 		public void GameWin()
 		{
