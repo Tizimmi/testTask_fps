@@ -2,7 +2,7 @@
 
 namespace Game.Scripts.PlayerModules.InventoryLogic.Items
 {
-	[CreateAssetMenu(menuName = "ScriptableObjects/" + nameof(Inventory) + "/" + nameof(Item) , fileName = "new_" + nameof(Item))]
+	[CreateAssetMenu(menuName = "ScriptableObjects/" + nameof(Inventory) + "/" + nameof(Item), fileName = "new_" + nameof(Item))]
 	public class Item : ScriptableObject
 	{
 		[SerializeField]

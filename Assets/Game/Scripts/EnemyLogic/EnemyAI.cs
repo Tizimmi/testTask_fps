@@ -7,9 +7,6 @@ namespace Game.Scripts.EnemyLogic
 {
 	public class EnemyAi : MonoBehaviour
 	{
-		[Inject]
-		private HealthComponent _playerHealth;
-
 		[SerializeField]
 		private NavMeshAgent _agent;
 		[SerializeField]
@@ -28,11 +25,13 @@ namespace Game.Scripts.EnemyLogic
 		private int _attackDamage;
 		[SerializeField]
 		private float _timeBetweenAttacks;
+		private bool _alreadyAttacked;
+		[Inject]
+		private HealthComponent _playerHealth;
+		private bool _playerInSightRange, _playerInAttackRange;
 
 		private Vector3 _walkPoint;
 		private bool _walkPointSet;
-		private bool _alreadyAttacked;
-		private bool _playerInSightRange, _playerInAttackRange;
 
 		private void Awake()
 		{
@@ -54,6 +53,14 @@ namespace Game.Scripts.EnemyLogic
 				AttackPlayer();
 		}
 
+		private void OnDrawGizmosSelected()
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(transform.position, _attackRange);
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawWireSphere(transform.position, _sightRange);
+		}
+
 		private void Patroling()
 		{
 			if (!_walkPointSet)
@@ -62,7 +69,7 @@ namespace Game.Scripts.EnemyLogic
 			if (_walkPointSet)
 				_agent.SetDestination(_walkPoint);
 
-			Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+			var distanceToWalkPoint = transform.position - _walkPoint;
 
 			if (distanceToWalkPoint.magnitude < 1f)
 				_walkPointSet = false;
@@ -70,8 +77,8 @@ namespace Game.Scripts.EnemyLogic
 
 		private void SearchWalkPoint()
 		{
-			float randomZ = Random.Range(-_walkPointRange, _walkPointRange);
-			float randomX = Random.Range(-_walkPointRange, _walkPointRange);
+			var randomZ = Random.Range(-_walkPointRange, _walkPointRange);
+			var randomX = Random.Range(-_walkPointRange, _walkPointRange);
 
 			_walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -93,7 +100,11 @@ namespace Game.Scripts.EnemyLogic
 
 			transform.LookAt(_player);
 			var rotation = transform.rotation;
-			rotation = new Quaternion(0f, rotation.y, 0f, rotation.w);
+			rotation = new Quaternion(0f,
+				rotation.y,
+				0f,
+				rotation.w);
+
 			transform.rotation = rotation;
 
 			if (!_alreadyAttacked)
@@ -108,14 +119,6 @@ namespace Game.Scripts.EnemyLogic
 		private void ResetAttack()
 		{
 			_alreadyAttacked = false;
-		}
-
-		private void OnDrawGizmosSelected()
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere(transform.position, _attackRange);
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(transform.position, _sightRange);
 		}
 	}
 }

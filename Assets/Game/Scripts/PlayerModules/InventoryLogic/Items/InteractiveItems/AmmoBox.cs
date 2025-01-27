@@ -6,18 +6,18 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 {
 	public class AmmoBox : ConsumablePickup
 	{
-		[Inject]
-		private readonly Shooting _shooting;
-		[Inject]
-		private readonly Inventory _inventory;
 		[SerializeField]
 		public int _ammoAmount;
 		[SerializeField]
 		public ItemType _ammoType;
+		[Inject]
+		private readonly Inventory _inventory;
+		[Inject]
+		private readonly Shooting _shooting;
 
 		public override void Use()
 		{
-			if(!_canBeUsed)
+			if (!_canBeUsed)
 				return;
 
 			if (_shooting.TryAddAmmo(_ammoAmount, _ammoType))

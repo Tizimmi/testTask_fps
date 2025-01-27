@@ -8,22 +8,22 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 	{
 		[SerializeField]
 		private int _healingValue;
-		[Inject]
-		private readonly Inventory _inventory;
-		
+
 		[Inject]
 		private readonly HealthComponent _health;
-		
+		[Inject]
+		private readonly Inventory _inventory;
+
 		public override void Use()
 		{
-			if(!_canBeUsed)
+			if (!_canBeUsed)
 				return;
 
 			if (_health.TryHeal(_healingValue))
 			{
 				_inventory.RemoveItem(_item);
 				Destroy(gameObject);
-			}	
+			}
 		}
 	}
 }

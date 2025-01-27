@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Game.Scripts.Global
 {
-    public class GamePrefabFactory
+	public class GamePrefabFactory
 	{
 		private readonly DiContainer _container;
 

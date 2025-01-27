@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Revolver
   _type: 1
   _prefab: {fileID: 3100239772661441639, guid: 236eecf3b112ec74d8fa53baf9fafb88, type: 3}
-  _positionInHand: {x: 0, y: 0, z: 0}
   _magazineSize: 6
   _ammoStorage: 18
   _damage: 20
@@ -23,3 +22,7 @@ MonoBehaviour:
   _fireCooldown: 0.6
   _reloadTime: 1
   _zoomValue: 55
+  _fireAudio: {fileID: 7463240289719937083, guid: 165fde413729eb3408210c22649c6bde,
+    type: 3}
+  _muzzleFlash: {fileID: 100006, guid: b0a227fc2e558f241b1c747820ccc361, type: 3}
+  _muzzlePosition: {x: 1, y: 1, z: 1}

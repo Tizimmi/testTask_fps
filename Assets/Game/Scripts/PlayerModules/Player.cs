@@ -8,8 +8,7 @@ namespace Game.Scripts.PlayerModules
 	{
 		[SerializeField]
 		private PickupHandler _pickupHandler;
-		
+
 		public Inventory Inventory = new();
-		
 	}
 }

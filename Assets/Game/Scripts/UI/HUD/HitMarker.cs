@@ -9,7 +9,7 @@ namespace Game.Scripts.UI.HUD
 		private float _lifeTime;
 		[SerializeField]
 		private Image _image;
-		
+
 		private void Update()
 		{
 			_lifeTime -= Time.deltaTime;
@@ -18,8 +18,8 @@ namespace Game.Scripts.UI.HUD
 				_image.color.g,
 				_image.color.b,
 				Mathf.Clamp(_lifeTime, 0, 255));
-			
-			if(_lifeTime <= 0)
+
+			if (_lifeTime <= 0)
 				Destroy(gameObject);
 		}
 	}

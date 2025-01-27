@@ -10,77 +10,58 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 {
 	public class EquipmentModule : MonoBehaviour
 	{
+		public int CurrentItemSlotID { get; private set; }
+
+		public Pickup _currentItemObject;
 		[SerializeField]
 		private Transform _handSlot;
-		
+		[Inject]
+		private AmmoView _ammoView;
+
 		[Inject]
 		private Inventory _inventory;
 		[Inject]
-		private AmmoView _ammoView;
+		private GamePrefabFactory _prefabFactory;
 		[Inject]
 		private Shooting _shooting;
-		[Inject]
-		private GamePrefabFactory _prefabFactory;
-
-		public int CurrentItemSlotID { get; private set; }
-		
-		public Pickup _currentItemObject;
 
 		private void Update()
 		{
 			Item item;
-			
+
 			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
 				if (_inventory.TryGetItem(0, out item))
-				{
 					EquipItem(item);
-				}
-			}
+
 			if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
 				if (_inventory.TryGetItem(1, out item))
-				{
 					EquipItem(item);
-				}
-			}
+
 			if (Input.GetKeyDown(KeyCode.Alpha3))
-			{
 				if (_inventory.TryGetItem(2, out item))
-				{
 					EquipItem(item);
-				}
-			}
+
 			if (Input.GetKeyDown(KeyCode.Alpha4))
-			{
 				if (_inventory.TryGetItem(3, out item))
-				{
 					EquipItem(item);
-				}
-			}
+
 			if (Input.GetKeyDown(KeyCode.Alpha5))
-			{
 				if (_inventory.TryGetItem(4, out item))
-				{
 					EquipItem(item);
-				}
-			}
 
 			if (Input.GetKeyDown(KeyCode.Q))
-			{
 				DropItem();
-			}
 		}
 
 		private void EquipItem(Item item)
 		{
-			if(_currentItemObject)
+			if (_currentItemObject)
 				UnEquipItem();
-			
+
 			_currentItemObject = _prefabFactory.InstantiatePrefab<Pickup>(item._prefab, _handSlot);
 			_currentItemObject.Enable();
-			
-			CurrentItemSlotID = (int)_currentItemObject._item._type;
+
+			CurrentItemSlotID = (int) _currentItemObject._item._type;
 
 			if (item is Gun gun)
 			{
@@ -102,23 +83,21 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 
 			if (item is Gun)
 				_shooting.StopReload();
-			
-			Destroy(_currentItemObject.gameObject);
 
+			Destroy(_currentItemObject.gameObject);
 		}
 
 		private void DropItem()
 		{
 			_shooting.ResetZoom();
-			
+
 			if (!_currentItemObject)
 				return;
-			
+
 			if (_inventory.TryGetItem(CurrentItemSlotID, out var item))
-			{
 				if (item is Gun)
 					_shooting.StopReload();
-			}
+
 			_currentItemObject.Drop();
 			_ammoView.ResetText();
 			_inventory.RemoveItem(CurrentItemSlotID);

@@ -12,12 +12,12 @@ namespace Game.Scripts.UI
 		{
 			if (_camera == null)
 				return;
-			
-			Vector3 direction = _camera.transform.position - transform.position;
+
+			var direction = _camera.transform.position - transform.position;
 
 			if (direction != Vector3.zero)
 			{
-				Quaternion rotation = Quaternion.LookRotation(direction);
+				var rotation = Quaternion.LookRotation(direction);
 				transform.rotation = rotation * Quaternion.Euler(0, 180, 0);
 			}
 		}

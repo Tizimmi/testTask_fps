@@ -16,24 +16,24 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		[SerializeField]
 		private EquipmentModule _equipmentModule;
 
-		[Inject]
-		private readonly Inventory _inventory;
+		[SerializeField]
+		private List<GunState> _gunStates = new();
 		[Inject]
 		private readonly AmmoView _ammoView;
 		[Inject]
 		private readonly HitMarkerController _hitMarkerController;
+
+		[Inject]
+		private readonly Inventory _inventory;
 		[Inject]
 		private Camera _camera;
-		private float _lastShotTime;
+		private bool _canShoot;
+		private float _defaultFOV;
 
 		private bool _isReloading;
-		private bool _canShoot;
-		
-		[SerializeField]
-		private List<GunState> _gunStates = new();
-		
+
 		private bool _isZooming;
-		private float _defaultFOV;
+		private float _lastShotTime;
 
 		private void Start()
 		{
@@ -47,16 +47,12 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 				return;
 
 			if (item is not Gun gun)
-			{
 				return;
-			}
-			
+
 			if (Input.GetButtonDown("Fire2"))
-			{
 				ToggleZoom(gun);
-			}
-			
-			GunState gunState = GetOrCreateGunState(gun);
+
+			var gunState = GetOrCreateGunState(gun);
 
 			if (gunState._currentMagazineFill <= 0)
 				Reload(gun, gunState);
@@ -67,14 +63,10 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 				return;
 
 			if (Input.GetButton("Fire1"))
-			{
 				Shoot(gun, gunState);
-			}
 
 			if (Input.GetButtonDown("Reload"))
-			{
 				Reload(gun, gunState);
-			}
 		}
 
 		public GunState GetOrCreateGunState(Gun gun)
@@ -82,13 +74,41 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 			var existingState = _gunStates.Find(state => state.Gun == gun);
 
 			if (existingState != null)
-			{
 				return existingState;
-			}
 
 			var newState = new GunState(gun);
 			_gunStates.Add(newState);
 			return newState;
+		}
+
+		public bool TryAddAmmo(int amount, ItemType type)
+		{
+			var selected = _gunStates.Find(x => x.Gun._type == type);
+
+			if (selected == null)
+				return false;
+
+			if (selected._currentAmmoStorage >= selected.Gun._ammoStorage)
+				return false;
+
+			selected.AddAmmo(amount);
+
+			return true;
+		}
+
+		public void ResetZoom()
+		{
+			_camera.fieldOfView = _defaultFOV;
+			_isZooming = false;
+		}
+
+		public void StopReload()
+		{
+			if (_isReloading)
+			{
+				StopAllCoroutines();
+				_isReloading = false;
+			}
 		}
 
 		private void TryShoot(GunState gunState)
@@ -108,7 +128,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 
 		private void ShootRay(Gun gun)
 		{
-			Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / (float) 2, Screen.height / (float) 2));
+			var ray = _camera.ScreenPointToRay(new Vector3(Screen.width / (float) 2, Screen.height / (float) 2));
 
 			if (Physics.Raycast(ray, out var hit, gun._range))
 			{
@@ -124,22 +144,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		private void UseAmmo(Gun gun, GunState gunState)
 		{
 			gunState._currentMagazineFill--;
+			Instantiate(gun._fireAudio, transform);
 			UpdateAmmoView(gunState, gun);
-		}
-
-		public bool TryAddAmmo(int amount, ItemType type)
-		{
-			var selected = _gunStates.Find(x => x.Gun._type == type);
-			
-			if (selected == null)
-				return false;
-
-			if (selected._currentAmmoStorage >= selected.Gun._ammoStorage)
-				return false;
-			
-			selected.AddAmmo(amount);
-			
-			return true;
 		}
 
 		private void Reload(Gun gun, GunState gunState)
@@ -180,7 +186,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		{
 			_ammoView.UpdateAmmo(gunState._currentMagazineFill, gun._magazineSize, gunState._currentAmmoStorage);
 		}
-		
+
 		private void ToggleZoom(Gun gun)
 		{
 			if (!_camera)
@@ -196,21 +202,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		{
 			_camera.fieldOfView = newFOV;
 			_isZooming = true;
-		}
-
-		public void ResetZoom()
-		{
-			_camera.fieldOfView = _defaultFOV;
-			_isZooming = false;
-		}
-
-		public void StopReload()
-		{
-			if (_isReloading)
-			{
-				StopAllCoroutines();
-				_isReloading = false;
-			}
 		}
 	}
 }

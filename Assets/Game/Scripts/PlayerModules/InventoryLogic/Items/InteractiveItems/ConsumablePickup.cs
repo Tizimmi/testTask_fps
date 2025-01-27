@@ -9,10 +9,7 @@
 			base.Enable();
 			_canBeUsed = true;
 		}
-		
-		public virtual void Use()
-		{
-			
-		}
+
+		public virtual void Use() { }
 	}
 }

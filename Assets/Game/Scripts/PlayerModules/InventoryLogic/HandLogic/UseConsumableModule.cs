@@ -12,20 +12,17 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 
 		[Inject]
 		private readonly Inventory _inventory;
-		
+
 		public void Update()
 		{
-			if(!_inventory.TryGetItem(_equipmentModule.CurrentItemSlotID, out var item))
+			if (!_inventory.TryGetItem(_equipmentModule.CurrentItemSlotID, out var item))
 				return;
-			
+
 			if (_equipmentModule._currentItemObject is not ConsumablePickup consumable)
 				return;
 
 			if (Input.GetButtonDown("Fire1"))
-			{
 				consumable.Use();
-			}
-				
 		}
 	}
 }

@@ -7,14 +7,13 @@ namespace Game.Scripts.GameManagement
 {
 	public class GameLoopManager : MonoBehaviour
 	{
+		private const string SceneName = "GameScene";
 		[SerializeField]
 		private GameOverScreenView _gameOverScreenView;
 		[SerializeField]
 		private Camera _deathCamera;
 		[SerializeField]
 		private GameObject _hud;
-		
-		private const string SceneName = "GameScene";
 
 		public void GameWin()
 		{
@@ -34,6 +33,7 @@ namespace Game.Scripts.GameManagement
 		private IEnumerator AwaitBeforeLoadScene()
 		{
 			yield return new WaitForSeconds(5);
+
 			StartAgain();
 		}
 

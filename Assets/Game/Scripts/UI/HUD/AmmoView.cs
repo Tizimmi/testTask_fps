@@ -12,7 +12,7 @@ namespace Game.Scripts.UI.HUD
 		{
 			_ammoField.text = string.Empty;
 		}
-		
+
 		public void SetReloadState()
 		{
 			_ammoField.text = "Reloading...";

@@ -30,11 +30,11 @@ namespace Game.Scripts.Global
 			Container.Bind<HealthComponent>().FromResolveGetter<Player>(x => x.GetComponent<HealthComponent>()).AsSingle();
 			Container.Bind<Shooting>().FromResolveGetter<Player>(x => x.GetComponent<Shooting>()).AsSingle();
 			Container.Bind<Camera>().FromResolveGetter<Player>(x => x.GetComponentInChildren<Camera>()).AsSingle();
-			
+
 			Container.Bind<PlayerDeathHandler>().AsSingle().NonLazy();
 			Container.Bind<EnemiesDeathHandler>().AsSingle().NonLazy();
 			Container.Bind<GamePrefabFactory>().AsSingle();
-			
+
 			Container.BindInstance(_player).AsSingle();
 			Container.BindInstance(_gameLoopManager).AsSingle();
 			Container.BindInstance(_enemyRootProvider).AsSingle();

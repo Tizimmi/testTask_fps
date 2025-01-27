@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: AUG
   _type: 0
   _prefab: {fileID: 41487888248011604, guid: 7b1e59aa322f30345bc2068070199793, type: 3}
-  _positionInHand: {x: 0, y: 0, z: 0}
   _magazineSize: 31
   _ammoStorage: 93
   _damage: 10
@@ -23,3 +22,7 @@ MonoBehaviour:
   _fireCooldown: 0.2
   _reloadTime: 2
   _zoomValue: 20
+  _fireAudio: {fileID: 4230436696467566347, guid: 4aaebed49c5dbda4bbfdd045edd9fccf,
+    type: 3}
+  _muzzleFlash: {fileID: 100006, guid: b0a227fc2e558f241b1c747820ccc361, type: 3}
+  _muzzlePosition: {x: 1, y: 1, z: 1}

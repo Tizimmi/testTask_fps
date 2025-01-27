@@ -8,6 +8,11 @@ namespace Game.Scripts.UI.HUD
 		[SerializeField]
 		private TextMeshProUGUI _gameOverText;
 
+		public void Reset()
+		{
+			_gameOverText.text = string.Empty;
+		}
+
 		public void SetGameLose()
 		{
 			_gameOverText.text = "YOU DIED";
@@ -16,11 +21,6 @@ namespace Game.Scripts.UI.HUD
 		public void SetGameWin()
 		{
 			_gameOverText.text = "YOU WON";
-		}
-
-		public void Reset()
-		{
-			_gameOverText.text = string.Empty;
 		}
 	}
 }

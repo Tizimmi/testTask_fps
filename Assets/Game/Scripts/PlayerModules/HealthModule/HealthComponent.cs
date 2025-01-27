@@ -6,8 +6,8 @@ namespace Game.Scripts.PlayerModules.HealthModule
 {
 	public class HealthComponent : MonoBehaviour, IDamagable
 	{
-		public event Action<int, int> OnHealthChange;
 		public event Action OnDeath;
+		public event Action<int, int> OnHealthChange;
 
 		[SerializeField]
 		private int _maxHealth;
@@ -19,21 +19,28 @@ namespace Game.Scripts.PlayerModules.HealthModule
 			Init();
 		}
 
-		private void Init()
-		{
-			_currentHealth = _maxHealth;
-		}
-		
 		public void TakeDamage(int value)
 		{
 			_currentHealth = Mathf.Max(0, _currentHealth - value);
-			
+
 			OnHealthChange?.Invoke(_currentHealth, _maxHealth);
-			
+
 			if (_currentHealth == 0)
-			{
 				Death();
-			}
+		}
+
+		public bool TryHeal(int value)
+		{
+			if (_currentHealth == _maxHealth)
+				return false;
+
+			Heal(value);
+			return true;
+		}
+
+		private void Init()
+		{
+			_currentHealth = _maxHealth;
 		}
 
 		private void Death()
@@ -42,18 +49,10 @@ namespace Game.Scripts.PlayerModules.HealthModule
 			OnDeath?.Invoke();
 		}
 
-		public bool TryHeal(int value)
-		{
-			if (_currentHealth == _maxHealth)
-				return false;
-			Heal(value);
-			return true;
-		}
-
 		private void Heal(int value)
 		{
 			_currentHealth = Mathf.Min(_maxHealth, _currentHealth + value);
-			
+
 			OnHealthChange?.Invoke(_currentHealth, _maxHealth);
 		}
 	}

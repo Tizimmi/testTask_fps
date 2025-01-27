@@ -5,7 +5,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 	public class Inventory
 	{
 		private readonly Item[] _inventoryItems = new Item[5];
-		
+
 		public bool AddItem(Item item)
 		{
 			var newItem = (int) item._type;
@@ -15,7 +15,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 
 			_inventoryItems[newItem] = item;
 			return true;
-
 		}
 
 		public void RemoveItem(int index)
@@ -25,7 +24,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 
 		public void RemoveItem(Item item)
 		{
-			RemoveItem((int)item._type);
+			RemoveItem((int) item._type);
 		}
 
 		public bool TryGetItem(int index, out Item item)

@@ -6,10 +6,9 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 	[System.Serializable]
 	public class GunState
 	{
-		public readonly Gun Gun;
-		
 		public int _currentMagazineFill;
 		public int _currentAmmoStorage;
+		public readonly Gun Gun;
 
 		public GunState(Gun gun)
 		{
