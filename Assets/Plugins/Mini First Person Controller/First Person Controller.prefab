@@ -515,11 +515,11 @@ GameObject:
   - component: {fileID: 114497868231759342}
   - component: {fileID: 114762042097486276}
   - component: {fileID: 5807731464628891014}
-  - component: {fileID: 1952917382304484944}
   - component: {fileID: 456622356064702092}
   - component: {fileID: 6570020166950695155}
   - component: {fileID: 9053014798393044136}
   - component: {fileID: 3842998643469154826}
+  - component: {fileID: 9074451149123321523}
   m_Layer: 8
   m_Name: First Person Controller
   m_TagString: Untagged
@@ -657,21 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupHandler: {fileID: 6570020166950695155}
-  _handItemModule: {fileID: 1952917382304484944}
---- !u!114 &1952917382304484944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773623360729482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ecc8c00918135e449e666f08bf4f0db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 20437472682476688}
-  _zoomValue: 30
 --- !u!114 &456622356064702092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,12 +683,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e94bfcda934ef098cf73bc629063cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 20437472682476688}
   _pickupLayer:
     serializedVersion: 2
     m_Bits: 64
   _pickupRange: 10
-  _itemContainer: {fileID: 517567110570061517}
 --- !u!114 &9053014798393044136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980f50f1f4c24325986b1d128623b8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
+  _maxHealth: 100
 --- !u!114 &3842998643469154826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,6 +710,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db72232692d411bb5f78056eb82b851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _equipmentModule: {fileID: 456622356064702092}
+  _gunStates: []
+--- !u!114 &9074451149123321523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773623360729482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3f4bb47aa546ea828c3b9bf4c981ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _equipmentModule: {fileID: 456622356064702092}

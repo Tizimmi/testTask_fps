@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Game.Scripts.UI.HUD
 {
@@ -12,9 +13,9 @@ namespace Game.Scripts.UI.HUD
 		[SerializeField]
 		private Image _healthBar;
 
-		private void UpdateHealth(int currentHealth)
+		private void UpdateHealth(int currentHealth, int maxHealth)
 		{
-			_healthBar.fillAmount = Mathf.Clamp(((float) currentHealth / _health.MaxHealth), 0, 1);
+			_healthBar.fillAmount = Mathf.Clamp(((float) currentHealth / maxHealth), 0, 1);
 		}
 
 		private void OnEnable()

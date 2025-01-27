@@ -18,12 +18,12 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 		{
 			if(!_canBeUsed)
 				return;
-			if(_health.CurrentHealth == _health.MaxHealth)
-				return;
-			
-			_health.Heal(_healingValue);
-			_inventory.RemoveItem(_item);
-			Destroy(gameObject);
+
+			if (_health.TryHeal(_healingValue))
+			{
+				_inventory.RemoveItem(_item);
+				Destroy(gameObject);
+			}	
 		}
 	}
 }

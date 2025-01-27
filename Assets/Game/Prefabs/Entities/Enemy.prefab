@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 686422371341242680}
   - component: {fileID: 3331872723846903838}
   - component: {fileID: 7044562836575922498}
+  - component: {fileID: 4002671211501507717}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -102,6 +103,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4002671211501507717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243806120258290184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9d201556f14e44bbf20dccb9a55b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4527722546215693745
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980f50f1f4c24325986b1d128623b8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
+  _maxHealth: 100
 --- !u!195 &7206905472116589337
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -262,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74aaa8523f434af7bd64c4b1edc65eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 0}
+  _agent: {fileID: 7206905472116589337}
   _player: {fileID: 0}
   _whatIsGround:
     serializedVersion: 2

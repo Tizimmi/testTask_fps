@@ -92,6 +92,9 @@ namespace Game.Scripts.EnemyLogic
 			_agent.SetDestination(transform.position);
 
 			transform.LookAt(_player);
+			var rotation = transform.rotation;
+			rotation = new Quaternion(0f, rotation.y, 0f, rotation.w);
+			transform.rotation = rotation;
 
 			if (!_alreadyAttacked)
 			{
