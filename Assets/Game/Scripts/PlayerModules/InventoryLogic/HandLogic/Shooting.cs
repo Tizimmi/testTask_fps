@@ -106,6 +106,21 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 			}
 		}
 
+		private void ShootRay(Gun gun)
+		{
+			Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / (float) 2, Screen.height / (float) 2));
+
+			if (Physics.Raycast(ray, out var hit, gun._range))
+			{
+				var healthComponent = hit.transform.gameObject.GetComponent<IDamagable>();
+				if (healthComponent == null)
+					return;
+
+				healthComponent.TakeDamage(gun._damage);
+				_hitMarkerController.ShowHitMarker();
+			}
+		}
+
 		private void UseAmmo(Gun gun, GunState gunState)
 		{
 			gunState._currentMagazineFill--;
@@ -125,21 +140,6 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 			selected.AddAmmo(amount);
 			
 			return true;
-		}
-
-		private void ShootRay(Gun gun)
-		{
-			Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / (float) 2, Screen.height / (float) 2));
-
-			if (Physics.Raycast(ray, out var hit, gun._range))
-			{
-				var healthComponent = hit.transform.gameObject.GetComponent<IDamagable>();
-				if (healthComponent == null)
-					return;
-
-				healthComponent.TakeDamage(gun._damage);
-				_hitMarkerController.ShowHitMarker();
-			}
 		}
 
 		private void Reload(Gun gun, GunState gunState)

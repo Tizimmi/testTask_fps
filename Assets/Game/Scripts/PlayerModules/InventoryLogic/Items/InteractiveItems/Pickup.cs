@@ -23,5 +23,17 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 			trans.localPosition = _positionInHand;
 			trans.localRotation = Quaternion.identity;
 		}
+
+		public virtual void Drop()
+		{
+			_rb.isKinematic = false;
+			_collider.isTrigger = false;
+			
+			var trans = transform;
+			trans.localPosition = _positionInHand;
+			trans.localRotation = Quaternion.identity;
+			
+			trans.SetParent(null);
+		}
 	}
 }

@@ -65,6 +65,11 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 					EquipItem(item);
 				}
 			}
+
+			if (Input.GetKeyDown(KeyCode.Q))
+			{
+				DropItem();
+			}
 		}
 
 		private void EquipItem(Item item)
@@ -91,15 +96,32 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 		private void UnEquipItem()
 		{
 			_shooting.ResetZoom();
+
+			if (!_inventory.TryGetItem(CurrentItemSlotID, out var item))
+				return;
+
+			if (item is Gun)
+				_shooting.StopReload();
+			
+			Destroy(_currentItemObject.gameObject);
+
+		}
+
+		private void DropItem()
+		{
+			_shooting.ResetZoom();
+			
+			if (!_currentItemObject)
+				return;
 			
 			if (_inventory.TryGetItem(CurrentItemSlotID, out var item))
 			{
-				if (item is Gun gun)
-				{
+				if (item is Gun)
 					_shooting.StopReload();
-				}
 			}
-			Destroy(_currentItemObject.gameObject);
+			_currentItemObject.Drop();
+			_ammoView.ResetText();
+			_inventory.RemoveItem(CurrentItemSlotID);
 		}
 	}
 }
