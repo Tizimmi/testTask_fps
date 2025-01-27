@@ -94,9 +94,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8058291505918387211}
-  - component: {fileID: -8675252835350229788}
   - component: {fileID: 8071631327222236504}
   - component: {fileID: 685550038887646568}
+  - component: {fileID: 2359433613634310720}
   m_Layer: 6
   m_Name: Medkit
   m_TagString: Untagged
@@ -122,22 +122,6 @@ Transform:
   - {fileID: 545258211377015282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8675252835350229788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231455708735022607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40f3559eb96d449d9402aaa8b9b7e9a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 8071631327222236504}
-  _collider: {fileID: 685550038887646568}
-  _positionInHand: {x: 0.3, y: 0.36, z: 0.03}
-  _item: {fileID: 11400000, guid: 83a1b67beb5f1d840a38e53c1db3d51e, type: 2}
 --- !u!54 &8071631327222236504
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -186,6 +170,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.46, y: 0.45, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2359433613634310720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231455708735022607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8511cef6ba466d9c2665f562362a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 8071631327222236504}
+  _collider: {fileID: 685550038887646568}
+  _positionInHand: {x: 0.3, y: 0.36, z: 0.03}
+  _item: {fileID: 11400000, guid: 83a1b67beb5f1d840a38e53c1db3d51e, type: 2}
+  _healingValue: 35
+  _useButton: 122
 --- !u!1 &3920944250545700882
 GameObject:
   m_ObjectHideFlags: 0

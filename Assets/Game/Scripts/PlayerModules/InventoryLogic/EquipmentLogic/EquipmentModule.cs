@@ -1,4 +1,5 @@
-﻿using Game.Scripts.PlayerModules.InventoryLogic.HandLogic;
+﻿using Game.Scripts.Global;
+using Game.Scripts.PlayerModules.InventoryLogic.HandLogic;
 using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
 using Game.Scripts.UI.HUD;
@@ -9,18 +10,21 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 {
 	public class EquipmentModule : MonoBehaviour
 	{
+		[SerializeField]
+		private Transform _handSlot;
+		
 		[Inject]
 		private Inventory _inventory;
 		[Inject]
 		private AmmoView _ammoView;
 		[Inject]
 		private Shooting _shooting;
-		[SerializeField]
-		private Transform _handSlot;
+		[Inject]
+		private GamePrefabFactory _prefabFactory;
 
 		public int CurrentItemSlotID { get; private set; }
 		
-		private Pickup _currentItemObject;
+		public Pickup _currentItemObject;
 
 		private void Update()
 		{
@@ -68,7 +72,7 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			if(_currentItemObject)
 				UnEquipItem();
 			
-			_currentItemObject = Instantiate(item._prefab, _handSlot).GetComponent<Pickup>();
+			_currentItemObject = _prefabFactory.InstantiatePrefab<Pickup>(item._prefab, _handSlot);
 			_currentItemObject.Enable();
 			
 			CurrentItemSlotID = (int)_currentItemObject._item._type;

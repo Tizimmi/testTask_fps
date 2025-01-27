@@ -8,7 +8,7 @@ namespace Game.Scripts.EnemyLogic
 	public class EnemyAi : MonoBehaviour
 	{
 		[Inject]
-		public HealthComponent _playerHealth;
+		private HealthComponent _playerHealth;
 
 		[SerializeField]
 		private NavMeshAgent _agent;

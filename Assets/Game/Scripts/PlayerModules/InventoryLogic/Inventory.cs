@@ -1,6 +1,4 @@
 ﻿using Game.Scripts.PlayerModules.InventoryLogic.Items;
-using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
-using UnityEngine;
 
 namespace Game.Scripts.PlayerModules.InventoryLogic
 {
@@ -8,18 +6,16 @@ namespace Game.Scripts.PlayerModules.InventoryLogic
 	{
 		private readonly Item[] _inventoryItems = new Item[5];
 		
-		public void AddItem(Item item)
+		public bool AddItem(Item item)
 		{
 			var newItem = (int) item._type;
-			
-			if (_inventoryItems[newItem] == null)
-			{
-				_inventoryItems[newItem] = item;
-			}
-			else
-			{
-				Debug.Log("Slot is occupied");
-			}
+
+			if (_inventoryItems[newItem] != null)
+				return false;
+
+			_inventoryItems[newItem] = item;
+			return true;
+
 		}
 
 		public void RemoveItem(int index)

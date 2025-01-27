@@ -10,7 +10,7 @@ namespace Game.Scripts.PlayerModules.HealthModule
 		[field: SerializeField]
 		public int MaxHealth { get; private set; }
 		
-		private int _currentHealth;
+		public int CurrentHealth { get; private set; }
 
 		private void Start()
 		{
@@ -19,16 +19,16 @@ namespace Game.Scripts.PlayerModules.HealthModule
 
 		private void Init()
 		{
-			_currentHealth = MaxHealth;
+			CurrentHealth = MaxHealth;
 		}
 		
 		public void TakeDamage(int value)
 		{
-			_currentHealth = Mathf.Max(0, _currentHealth - value);
+			CurrentHealth = Mathf.Max(0, CurrentHealth - value);
 			
-			OnHealthChange?.Invoke(_currentHealth);
+			OnHealthChange?.Invoke(CurrentHealth);
 			
-			if (_currentHealth == 0)
+			if (CurrentHealth == 0)
 			{
 				Death();
 			}
@@ -42,9 +42,9 @@ namespace Game.Scripts.PlayerModules.HealthModule
 
 		public void Heal(int value)
 		{
-			_currentHealth = Mathf.Min(MaxHealth, _currentHealth + value);
+			CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + value);
 			
-			OnHealthChange?.Invoke(_currentHealth);
+			OnHealthChange?.Invoke(CurrentHealth);
 		}
 	}
 }

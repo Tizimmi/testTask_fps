@@ -25,6 +25,8 @@ namespace Game.Scripts.Global
 			Container.Bind<Shooting>().FromResolveGetter<Player>(x => x.GetComponent<Shooting>()).AsSingle();
 			Container.Bind<Camera>().FromResolveGetter<Player>(x => x.GetComponentInChildren<Camera>()).AsSingle();
 
+			Container.Bind<GamePrefabFactory>().AsSingle();
+
 			Container.BindInstance(_ammoView).AsSingle();
 		}
 	}

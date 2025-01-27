@@ -1,5 +1,6 @@
 ﻿using Game.Scripts.PlayerModules.HealthModule;
 using Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic;
+using Game.Scripts.PlayerModules.InventoryLogic.Items;
 using Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems;
 using Game.Scripts.UI.HUD;
 using System.Collections;
@@ -106,6 +107,15 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.HandLogic
 		{
 			gunState._currentMagazineFill--;
 			UpdateAmmoView(gunState, gun);
+		}
+
+		public bool TryAddAmmo(int amount, ItemType type)
+		{
+			var selected = _gunStates.Find(x => x.Gun._type == type);
+			if (selected == null)
+				return false;
+			selected.AddAmmo(amount);
+			return true;
 		}
 
 		private void ShootRay(Gun gun)

@@ -5,16 +5,16 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.Items.InteractiveItems
 	public class Pickup : MonoBehaviour
 	{
 		[SerializeField]
-		private Rigidbody _rb;
+		public Rigidbody _rb;
 		[SerializeField]
-		private Collider _collider;
+		public Collider _collider;
 		[SerializeField]
-		private Vector3 _positionInHand;
+		public Vector3 _positionInHand;
 		
 		[SerializeField]
 		public Item _item;
 		
-		public void Enable()
+		public virtual void Enable()
 		{
 			_rb.isKinematic = true;
 			_collider.isTrigger = true;

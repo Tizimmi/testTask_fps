@@ -36,8 +36,8 @@ namespace Game.Scripts.PlayerModules.InventoryLogic.EquipmentLogic
 			{
 				if (hit.transform.TryGetComponent(out Pickup pickup))
 				{
-					_inventory.AddItem(pickup._item);
-					Destroy(hit.transform.gameObject);
+					if(_inventory.AddItem(pickup._item))
+						Destroy(hit.transform.gameObject);
 				}
 			}
 		}
