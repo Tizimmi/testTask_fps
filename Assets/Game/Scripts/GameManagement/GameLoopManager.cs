@@ -11,13 +11,15 @@ namespace Game.Scripts.GameManagement
 		private GameOverScreenView _gameOverScreenView;
 		[SerializeField]
 		private Camera _deathCamera;
+		[SerializeField]
+		private GameObject _hud;
 		
 		private const string SceneName = "GameScene";
 
 		public void GameWin()
 		{
 			_gameOverScreenView.SetGameWin();
-
+			_hud.SetActive(false);
 			StartCoroutine(AwaitBeforeLoadScene());
 		}
 
@@ -25,6 +27,7 @@ namespace Game.Scripts.GameManagement
 		{
 			_gameOverScreenView.SetGameLose();
 			_deathCamera.gameObject.SetActive(true);
+			_hud.SetActive(false);
 			StartCoroutine(AwaitBeforeLoadScene());
 		}
 

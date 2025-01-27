@@ -339,6 +339,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1881099269}
+  - {fileID: 1505130261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -807,6 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameOverScreenView: {fileID: 1505130264}
   _deathCamera: {fileID: 2138848015}
+  _hud: {fileID: 1881099268}
 --- !u!1 &566650026
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,7 +3213,6 @@ RectTransform:
   - {fileID: 673387736}
   - {fileID: 905943441}
   - {fileID: 125197866}
-  - {fileID: 1505130261}
   m_Father: {fileID: 193432202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3920,8 +3921,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138848011}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.15599664, y: 0.39369893, z: -0.06798612, w: 0.9033516}
+  m_LocalPosition: {x: -13.820051, y: 6.026092, z: -11.537094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4036,7 +4037,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1881099269}
+    m_TransformParent: {fileID: 193432202}
     m_Modifications:
     - target: {fileID: 4222457741890716450, guid: 052e0f6f17629214588f13eb8c156bbf,
         type: 3}
@@ -4106,17 +4107,17 @@ PrefabInstance:
     - target: {fileID: 5392685624151606500, guid: 052e0f6f17629214588f13eb8c156bbf,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5392685624151606500, guid: 052e0f6f17629214588f13eb8c156bbf,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5392685624151606500, guid: 052e0f6f17629214588f13eb8c156bbf,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5392685624151606500, guid: 052e0f6f17629214588f13eb8c156bbf,
         type: 3}
